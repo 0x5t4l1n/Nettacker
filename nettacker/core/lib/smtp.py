@@ -8,8 +8,10 @@ class SmtpLibrary(BaseLibrary):
 
     def brute_force(self, host, port, username, password, timeout):
         connection = self.client(host, port, timeout=timeout)
-        connection.login(username, password)
-        connection.close()
+        try:
+            connection.login(username, password)
+        finally:
+            connection.close()
 
         return {
             "host": host,
